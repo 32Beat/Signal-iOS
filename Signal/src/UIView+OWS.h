@@ -4,9 +4,12 @@
 
 #import <UIKit/UIKit.h>
 
+// A set of helper methods for doing layout with PureLayout.
 @interface UIView (OWS)
 
+// Pins the width of this view to the view of its superview, with uniform margins.
 - (void)autoPinWidthToSuperviewWithMargin:(CGFloat)margin;
+// Pins the height of this view to the view of its superview, with uniform margins.
 - (void)autoPinHeightToSuperviewWithMargin:(CGFloat)margin;
 
 - (void)autoHCenterInSuperview;
