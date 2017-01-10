@@ -6,6 +6,12 @@
 
 @interface UIView (OWS)
 
+- (void)autoPinWidthToSuperviewWithMargin:(CGFloat)margin;
+- (void)autoPinHeightToSuperviewWithMargin:(CGFloat)margin;
+
+- (void)autoHCenterInSuperview;
+- (void)autoVCenterInSuperview;
+
 - (void)setContentHuggingHorizontalLow;
 - (void)setContentHuggingHorizontalHigh;
 - (void)setContentHuggingVerticalLow;

@@ -146,7 +146,11 @@ class CallViewController: UIViewController {
     var callDirection: CallDirection = .unspecified
     var thread: TSContactThread!
     var call: SignalCall!
+    
+    // MARK: Layout
+    
     var hasConstraints = false
+    let buttonHeight = CGFloat(80)
     
     // MARK: Background
     
@@ -282,8 +286,8 @@ class CallViewController: UIViewController {
         let button = UIButton()
         button.setImage(image, for:.normal)
         button.addTarget(self, action:action, for:.touchUpInside)
-        button.autoSetDimension(.width, toSize:80)
-        button.autoSetDimension(.height, toSize:80)
+        button.autoSetDimension(.width, toSize:buttonHeight)
+        button.autoSetDimension(.height, toSize:buttonHeight)
         return button
     }
     
@@ -304,18 +308,16 @@ class CallViewController: UIViewController {
             blurView.autoPinEdgesToSuperviewEdges()
             
             contactNameLabel.autoPinEdge(toSuperviewEdge:.top, withInset:topMargin)
-            contactNameLabel.autoPinEdge(toSuperviewEdge:.left, withInset:contactHMargin)
-            contactNameLabel.autoPinEdge(toSuperviewEdge:.right, withInset:contactHMargin)
+            contactNameLabel.autoPinWidthToSuperview(withMargin:contactHMargin)
             contactNameLabel.setContentHuggingVerticalHigh()
             
             callStatusLabel.autoPinEdge(.top, to:.bottom, of:contactNameLabel)
-            callStatusLabel.autoPinEdge(toSuperviewEdge:.left, withInset:contactHMargin)
-            callStatusLabel.autoPinEdge(toSuperviewEdge:.right, withInset:contactHMargin)
+            callStatusLabel.autoPinWidthToSuperview(withMargin:contactHMargin)
             callStatusLabel.setContentHuggingVerticalHigh()
             
             contactAvatarView.autoPinEdge(.top, to:.bottom, of:callStatusLabel, withOffset:+avatarVSpacing)
             contactAvatarView.autoPinEdge(.bottom, to:.top, of:ongoingCallControlsTopRow, withOffset:-avatarVSpacing)
-            contactAvatarView.autoAlignAxis(.vertical, toSameAxisOf:self.view)
+            contactAvatarView.autoHCenterInSuperview()
             // Stretch that avatar to fill the available space.
             contactAvatarView.setContentHuggingVerticalLow()
             // Preserve square aspect ratio of contact avatar.
@@ -324,37 +326,29 @@ class CallViewController: UIViewController {
             // Ongoing call controls
             ongoingCallControlsTopRow.autoPinEdge(.bottom, to:.top, of:ongoingCallControlsBottomRow, withOffset:-rowSpacing)
             ongoingCallControlsBottomRow.autoPinEdge(toSuperviewEdge:.bottom, withInset:bottomMargin)
-            ongoingCallControlsTopRow.autoPinEdge(toSuperviewEdge:.left, withInset:ongoingHMargin)
-            ongoingCallControlsBottomRow.autoPinEdge(toSuperviewEdge:.left, withInset:ongoingHMargin)
-            ongoingCallControlsTopRow.autoPinEdge(toSuperviewEdge:.right, withInset:ongoingHMargin)
-            ongoingCallControlsBottomRow.autoPinEdge(toSuperviewEdge:.right, withInset:ongoingHMargin)
+            ongoingCallControlsTopRow.autoPinWidthToSuperview(withMargin:ongoingHMargin)
+            ongoingCallControlsBottomRow.autoPinWidthToSuperview(withMargin:ongoingHMargin)
+            ongoingCallControlsTopRow.autoSetDimension(.height, toSize:buttonHeight)
+            ongoingCallControlsBottomRow.autoSetDimension(.height, toSize:buttonHeight)
             ongoingCallControlsTopRow.setContentHuggingVerticalHigh()
             ongoingCallControlsBottomRow.setContentHuggingVerticalHigh()
 
             textMessageButton.autoCenterInSuperview()
-            textMessageButton.autoPinEdge(.top, to:.top, of:textMessageButton.superview!)
-            textMessageButton.autoPinEdge(.bottom, to:.bottom, of:textMessageButton.superview!)
             
-            muteButton.autoPinEdge(.top, to:.top, of:muteButton.superview!)
-            muteButton.autoPinEdge(.bottom, to:.bottom, of:muteButton.superview!)
             hangUpButton.autoCenterInSuperview()
-            hangUpButton.autoPinEdge(.top, to:.top, of:hangUpButton.superview!)
-            hangUpButton.autoPinEdge(.bottom, to:.bottom, of:hangUpButton.superview!)
-            speakerPhoneButton.autoPinEdge(.top, to:.top, of:speakerPhoneButton.superview!)
-            speakerPhoneButton.autoPinEdge(.bottom, to:.bottom, of:speakerPhoneButton.superview!)
             muteButton.autoPinEdge(toSuperviewEdge:.left)
+            muteButton.autoVCenterInSuperview()
             speakerPhoneButton.autoPinEdge(toSuperviewEdge:.right)
+            speakerPhoneButton.autoVCenterInSuperview()
             
             // Incoming call controls
             incomingCallControlsRow.autoPinEdge(toSuperviewEdge:.bottom, withInset:bottomMargin)
-            incomingCallControlsRow.autoPinEdge(toSuperviewEdge:.left, withInset:incomingHMargin)
-            incomingCallControlsRow.autoPinEdge(toSuperviewEdge:.right, withInset:incomingHMargin)
+            incomingCallControlsRow.autoPinWidthToSuperview(withMargin:ongoingHMargin)
+            incomingCallControlsRow.autoSetDimension(.height, toSize:buttonHeight)
             incomingCallControlsRow.setContentHuggingVerticalHigh()
 
-            acceptIncomingButton.autoPinEdge(.top, to:.top, of:acceptIncomingButton.superview!)
-            acceptIncomingButton.autoPinEdge(.bottom, to:.bottom, of:acceptIncomingButton.superview!)
-            declineIncomingButton.autoPinEdge(.top, to:.top, of:declineIncomingButton.superview!)
-            declineIncomingButton.autoPinEdge(.bottom, to:.bottom, of:declineIncomingButton.superview!)
+            acceptIncomingButton.autoVCenterInSuperview()
+            declineIncomingButton.autoVCenterInSuperview()
             acceptIncomingButton.autoPinEdge(toSuperviewEdge:.left)
             declineIncomingButton.autoPinEdge(toSuperviewEdge:.right)
         }
